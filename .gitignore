@@ -1,0 +1,5 @@
+# For Terraform
+.terraform/
+.envrc
+terraform.tfstate.*
+*.terraform/
