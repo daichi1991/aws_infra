@@ -1,4 +1,4 @@
 resource "aws_codedeploy_app" "pomodoro_backend" {
   compute_platform = "ECS"
-  name             = "pomodoro_backend"
+  name             = "pomodoro-backend"
 }
