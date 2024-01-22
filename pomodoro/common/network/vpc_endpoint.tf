@@ -16,8 +16,8 @@ resource "aws_vpc_endpoint" "pomodoro_ecr" {
   }
 }
 
-resource "aws_vpc_endpoint" "pomodoro_secretsmanager" {
-  for_each = local.pomodoro_secretsmanager_service_names
+resource "aws_vpc_endpoint" "pomodoro_backend_secretsmanager" {
+  for_each = local.pomodoro_backend_secretsmanager_service_names
 
   vpc_id            = aws_vpc.pomodoro.id
   service_name      = each.value.service_name
@@ -34,8 +34,8 @@ resource "aws_vpc_endpoint" "pomodoro_secretsmanager" {
   }
 }
 
-resource "aws_vpc_endpoint" "pomodoro_logs" {
-  for_each = local.pomodoro_logs_service_names
+resource "aws_vpc_endpoint" "pomodoro_backend_logs" {
+  for_each = local.pomodoro_backend_logs_service_names
 
   vpc_id            = aws_vpc.pomodoro.id
   service_name      = each.value.service_name

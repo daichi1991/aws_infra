@@ -8,9 +8,9 @@ data "aws_region" "current" {}
 #   name = "cto-alert-emap-pomodoro-backend"
 # }
 
-data "aws_iam_policy" "awswaffullaccess" {
-  name = "AWSWAFFullAccess"
-}
+# data "aws_iam_policy" "awswaffullaccess" {
+#   name = "AWSWAFFullAccess"
+# }
 
 data "aws_vpc" "pomodoro" {
   tags = {
@@ -74,6 +74,6 @@ data "aws_route53_zone" "pomdoro_com_zone" {
   name = "pomo-sync-sounds.com"
 }
 
-data "aws_iam_role" "pomodoro_backend_ecs_task_execution" {
-  name = "pomodoro-backend-ecs-task-execution"
-}
+# data "aws_iam_role" "pomodoro_backend_ecs_task_execution" {
+#   name = "pomodoro-backend-ecs-task-execution"
+# }

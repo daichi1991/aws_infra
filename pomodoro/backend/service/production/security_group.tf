@@ -41,8 +41,8 @@ resource "aws_security_group" "prod_pomodoro_backend_ecs_task" {
   description = "prod-pomodoro-backend-ecs-task inbound traffic"
 
   ingress {
-    from_port       = "8080"
-    to_port         = "8080"
+    from_port       = "80"
+    to_port         = "80"
     protocol        = "tcp"
     security_groups = [aws_security_group.prod_pomodoro_backend_alb.id]
   }

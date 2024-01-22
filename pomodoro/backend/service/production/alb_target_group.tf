@@ -1,6 +1,6 @@
 resource "aws_alb_target_group" "prod_pomodoro_backend_blue" {
   name                 = "prod-pomodoro-backend-blue"
-  port                 = 8080
+  port                 = 80
   protocol             = "HTTP"
   vpc_id               = data.aws_vpc.pomodoro.id
   target_type          = "ip"
@@ -20,7 +20,7 @@ resource "aws_alb_target_group" "prod_pomodoro_backend_blue" {
 
 resource "aws_alb_target_group" "prod_pomodoro_backend_green" {
   name                 = "prod-pomodoro-backend-green"
-  port                 = 8080
+  port                 = 80
   protocol             = "HTTP"
   vpc_id               = data.aws_vpc.pomodoro.id
   target_type          = "ip"

@@ -1,6 +1,6 @@
 //prod
 resource "aws_route_table" "prod_pomodoro_public" {
-  for_each = local.prod_pomodoro_public_routetables
+  for_each = local.prod_pomodoro_backend_public_routetables
 
   vpc_id = aws_vpc.pomodoro.id
 
@@ -16,7 +16,7 @@ resource "aws_route_table" "prod_pomodoro_public" {
 }
 
 resource "aws_route_table" "prod_pomodoro_private" {
-  for_each = local.prod_pomodoro_private_routetables
+  for_each = local.prod_pomodoro_backend_private_routetables
 
   vpc_id = aws_vpc.pomodoro.id
 

@@ -1,8 +1,8 @@
 resource "aws_db_subnet_group" "prod_pomodoro_datastore" {
   name = "prod_pomodoro_datastore"
   subnet_ids = [
-    aws_subnet.prod_pomodoro["private-1a"].id,
-    aws_subnet.prod_pomodoro["private-1c"].id,
+    aws_subnet.prod_pomodoro_backend["private-1a"].id,
+    aws_subnet.prod_pomodoro_backend["private-1c"].id,
   ]
 
   tags = {

@@ -131,34 +131,34 @@ resource "aws_s3_bucket_public_access_block" "prod_pomodoro_backend_pipeline_art
 # S3 bucket to RDS snapshot to ap-northeast-3
 # ---------------------------
 resource "aws_s3_bucket" "rds_snapshot_copy" {
-  bucket = "rds-snapshot-copy-functions-bucket"
+  bucket = "ski-rds-snapshot-copy-functions-bucket"
 }
 
-resource "aws_s3_bucket_object" "rds_snapshot_copy" {
-  bucket = aws_s3_bucket.rds_snapshot_copy.id
-  key    = "rds_snapshot_copy/rds_snapshot_copy.zip"
-  source = "rds_snapshot_copy.zip"
-}
+# resource "aws_s3_bucket_object" "rds_snapshot_copy" {
+#   bucket = aws_s3_bucket.rds_snapshot_copy.id
+#   key    = "rds_snapshot_copy/rds_snapshot_copy.zip"
+#   source = "rds_snapshot_copy.zip"
+# }
 
-resource "aws_s3_bucket_acl" "rds_snapshot_copy" {
-  bucket = aws_s3_bucket.rds_snapshot_copy.bucket
+# resource "aws_s3_bucket_acl" "rds_snapshot_copy" {
+#   bucket = aws_s3_bucket.rds_snapshot_copy.bucket
 
-  access_control_policy {
-    grant {
-      permission = "FULL_CONTROL"
+#   access_control_policy {
+#     grant {
+#       permission = "FULL_CONTROL"
 
-      grantee {
-        id   = data.aws_canonical_user_id.current.id
-        type = "CanonicalUser"
-      }
-    }
+#       grantee {
+#         id   = data.aws_canonical_user_id.current.id
+#         type = "CanonicalUser"
+#       }
+#     }
 
-    owner {
-      display_name = "dev"
-      id           = data.aws_canonical_user_id.current.id
-    }
-  }
-}
+#     owner {
+#       display_name = "prod"
+#       id           = data.aws_canonical_user_id.current.id
+#     }
+#   }
+# }
 /*
 resource "aws_s3_bucket_policy" "rds_snapshot_copy" {
   bucket = aws_s3_bucket.rds_snapshot_copy.bucket

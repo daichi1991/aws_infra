@@ -8,8 +8,8 @@ resource "aws_db_instance" "prod_pomodoro_backend" {
   engine_version                  = "16.1"
   instance_class                  = "db.t4g.micro"
   port                            = "5432"
-  db_subnet_group_name            = "prod_pomodoro_backend_datastore"
-  parameter_group_name            = "pomodoro-backend14"
+  db_subnet_group_name            = "prod_pomodoro_datastore"
+  parameter_group_name            = "pomodoro-backend16"
   enabled_cloudwatch_logs_exports = ["postgresql", "upgrade"]
   kms_key_id                      = data.aws_kms_key.pomodoro_backend.arn
   vpc_security_group_ids          = [aws_security_group.prod_pomodoro_backend_db.id]

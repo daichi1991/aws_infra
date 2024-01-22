@@ -1,5 +1,5 @@
-resource "aws_subnet" "prod_pomodoro" {
-  for_each = local.pomodoro_prod_subnets
+resource "aws_subnet" "prod_pomodoro_backend" {
+  for_each = local.prod_pomodoro_backend_subnets
 
   vpc_id            = aws_vpc.pomodoro.id
   availability_zone = each.value.availability_zone
