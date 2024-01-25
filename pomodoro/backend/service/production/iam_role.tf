@@ -268,20 +268,18 @@ resource "aws_iam_policy" "prod_pomodoro_backend_ecs_task_execution" {
       },
       {
         "Action" : [
+          "ssm:GetParameters",
           "secretsmanager:GetSecretValue",
-          "kms:Decrypt",
         ]
         "Effect" : "Allow",
         "Resource" : [
           aws_secretsmanager_secret.prod_pomodoro_backend_app_secret.arn,
           aws_secretsmanager_secret.prod_pomodoro_backend_db.arn,
-          "arn:aws:secretsmanager:ap-northeast-1:265438772420:secret:evsmart-connect-qa-for-pomodoro-backend-QmeoAT",
         ]
       },
       {
         "Action" : [
           "kms:Decrypt",
-          "secretsmanager:GetSecretValue",
         ]
         "Effect" : "Allow",
         "Resource" : [

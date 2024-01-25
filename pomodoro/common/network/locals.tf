@@ -52,22 +52,22 @@ locals {
   # -----------
   # csr
   # -----------
-  pomodoro_ecr_service_names = {
-    pomodoro-ecr-dkr = {
+  pomodoro_backend_ecr_service_names = {
+    pomodoro-backend-ecr-dkr = {
       service_name = "com.amazonaws.ap-northeast-1.ecr.dkr"
     }
-    pomodoro-ecr-api = {
+    pomodoro-backend-ecr-api = {
       service_name = "com.amazonaws.ap-northeast-1.ecr.api"
     }
   }
   # -----------
   # ssm kms
   # -----------
-  pomodoro_ecr_ssm_kms_service_names = {
+  pomodoro_backend_ecr_ssm_kms_service_names = {
     pomodoro-ecr-ssm = {
       service_name = "com.amazonaws.ap-northeast-1.ssmmessages"
     }
-    pomodoro-ecr-kms = {
+    pomodoro-backend-ecr-kms = {
       service_name = "com.amazonaws.ap-northeast-1.kms"
     }
   }

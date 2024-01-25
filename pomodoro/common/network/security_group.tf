@@ -1,7 +1,7 @@
-resource "aws_security_group" "pomodoro_ecr" {
+resource "aws_security_group" "pomodoro_backend_ecr" {
   vpc_id      = aws_vpc.pomodoro.id
-  name        = "pomodoro-ecr"
-  description = "pomodoro-ecr traffic"
+  name        = "pomodoro-backend-ecr"
+  description = "pomodoro-backend-ecr traffic"
 
   ingress {
     from_port   = "443"
@@ -18,14 +18,14 @@ resource "aws_security_group" "pomodoro_ecr" {
   }
 
   tags = {
-    Name = "pomodoro-ecr"
+    Name = "pomodoro-backend-ecr"
   }
 }
 
-resource "aws_security_group" "pomodoro_secretsmanager" {
+resource "aws_security_group" "pomodoro_backend_secretsmanager" {
   vpc_id      = aws_vpc.pomodoro.id
-  name        = "pomodoro-secretsmanager"
-  description = "pomodoro-secretsmanager traffic"
+  name        = "pomodoro-backend-secretsmanager"
+  description = "pomodoro-backend-secretsmanager traffic"
 
   ingress {
     from_port   = "443"
@@ -42,14 +42,14 @@ resource "aws_security_group" "pomodoro_secretsmanager" {
   }
 
   tags = {
-    Name = "pomodoro-secretsmanager"
+    Name = "pomodoro-backend-secretsmanager"
   }
 }
 
-resource "aws_security_group" "pomodoro_logs" {
+resource "aws_security_group" "pomodoro_backend_logs" {
   vpc_id      = aws_vpc.pomodoro.id
-  name        = "pomodoro-logs"
-  description = "pomodoro-logs traffic"
+  name        = "pomodoro-backend-logs"
+  description = "pomodoro-backend-logs traffic"
 
   ingress {
     from_port   = "443"
@@ -66,7 +66,7 @@ resource "aws_security_group" "pomodoro_logs" {
   }
 
   tags = {
-    Name = "pomodoro-logs"
+    Name = "pomodoro-backend-logs"
   }
 }
 

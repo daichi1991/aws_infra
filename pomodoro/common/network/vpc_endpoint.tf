@@ -1,12 +1,12 @@
 resource "aws_vpc_endpoint" "pomodoro_ecr" {
-  for_each = local.pomodoro_ecr_service_names
+  for_each = local.pomodoro_backend_ecr_service_names
 
   vpc_id            = aws_vpc.pomodoro.id
   service_name      = each.value.service_name
   vpc_endpoint_type = "Interface"
 
   security_group_ids = [
-    aws_security_group.pomodoro_ecr.id
+    aws_security_group.pomodoro_backend_ecr.id
   ]
 
   private_dns_enabled = true
@@ -24,7 +24,7 @@ resource "aws_vpc_endpoint" "pomodoro_backend_secretsmanager" {
   vpc_endpoint_type = "Interface"
 
   security_group_ids = [
-    aws_security_group.pomodoro_secretsmanager.id
+    aws_security_group.pomodoro_backend_secretsmanager.id
   ]
 
   private_dns_enabled = true
@@ -42,7 +42,7 @@ resource "aws_vpc_endpoint" "pomodoro_backend_logs" {
   vpc_endpoint_type = "Interface"
 
   security_group_ids = [
-    aws_security_group.pomodoro_logs.id
+    aws_security_group.pomodoro_backend_logs.id
   ]
 
   private_dns_enabled = true
@@ -70,16 +70,16 @@ resource "aws_vpc_endpoint" "pomodoro_backend_logs" {
 #   }
 # }
 
-resource "aws_vpc_endpoint" "pomodoro_s3" {
+resource "aws_vpc_endpoint" "pomodoro_backend_s3" {
   vpc_endpoint_type = "Gateway"
   service_name      = "com.amazonaws.ap-northeast-1.s3"
   vpc_id            = aws_vpc.pomodoro.id
 
   route_table_ids = [
-    aws_route_table.prod_pomodoro_private["private-1a"].id,
-    aws_route_table.prod_pomodoro_private["private-1c"].id
+    aws_route_table.prod_pomodoro_backend_private["private-1a"].id,
+    aws_route_table.prod_pomodoro_backend_private["private-1c"].id
   ]
   tags = {
-    Name = "pomodoro-s3"
+    Name = "pomodoro-backend-s3"
   }
 }

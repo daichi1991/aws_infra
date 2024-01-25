@@ -73,7 +73,7 @@ resource "aws_kms_key" "cloudwatch_agent_ecr_repository_key" {
   enable_key_rotation = false
 }
 
-resource "aws_kms_alias" "base_image_ecr_repository_key_alias" {
+resource "aws_kms_alias" "cloudwatch_agent_ecr_repository_key_alias" {
   name          = "alias/cloudwatch-agent-ecr-repository-key"
   target_key_id = aws_kms_key.cloudwatch_agent_ecr_repository_key.key_id
 }

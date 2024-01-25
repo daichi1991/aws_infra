@@ -30,8 +30,8 @@ resource "aws_ecs_service" "prod_pomodoro_backend" {
 
   load_balancer {
     container_name   = "proxy"
-    container_port   = 8080
-    target_group_arn = aws_alb_target_group.prod_pomodoro_backend_green.arn
+    container_port   = 80
+    target_group_arn = aws_alb_target_group.prod_pomodoro_backend_blue.arn
   }
 
   network_configuration {

@@ -2,7 +2,7 @@
 variable "ingress_elb_ports" {
   type        = list(any)
   description = "ingress_elb_ports"
-  default     = [80, 443]
+  default     = [80, 443, 8080]
 }
 
 // kinesis-firehose
