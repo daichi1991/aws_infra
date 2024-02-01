@@ -60,10 +60,10 @@ resource "aws_security_group" "prod_pomodoro_backend_ecs_task" {
 }
 
 // db
-resource "aws_security_group" "prod_pomodoro_backend_db" {
+resource "aws_security_group" "prod_pomodoro_db" {
   vpc_id      = data.aws_vpc.pomodoro.id
-  name        = "prod-pomodoro-backend-db"
-  description = "prod-pomodoro-backend-db inbound traffic"
+  name        = "prod-pomodoro-db"
+  description = "prod-pomodoro-db inbound traffic"
 
   ingress {
     from_port = "5432"
@@ -82,6 +82,6 @@ resource "aws_security_group" "prod_pomodoro_backend_db" {
   }
 
   tags = {
-    Name = "prod-pomodoro-backend-db"
+    Name = "prod-pomodoro-db"
   }
 }

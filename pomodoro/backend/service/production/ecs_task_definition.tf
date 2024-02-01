@@ -24,7 +24,7 @@ resource "aws_ecs_task_definition" "prod_pomodoro_backend" {
     [
       {
         name      = "log_router"
-        image     = "${data.aws_caller_identity.current.account_id}.dkr.ecr.ap-northeast-1.amazonaws.com/pomodoro-backend-backend:main-log_router-latest"
+        image     = "${data.aws_caller_identity.current.account_id}.dkr.ecr.ap-northeast-1.amazonaws.com/pomodoro-backend:main-log_router-latest"
         essential = true
         "portMappings" : [
           {
@@ -94,7 +94,7 @@ resource "aws_ecs_task_definition" "prod_pomodoro_backend" {
       },
       {
         name      = "web"
-        image     = "${data.aws_caller_identity.current.account_id}.dkr.ecr.ap-northeast-1.amazonaws.com/pomodoro-backend-backend:main-web-latest"
+        image     = "${data.aws_caller_identity.current.account_id}.dkr.ecr.ap-northeast-1.amazonaws.com/pomodoro-backend:main-web-latest"
         essential = true
         "portMappings" : [
           {
@@ -119,23 +119,27 @@ resource "aws_ecs_task_definition" "prod_pomodoro_backend" {
         secrets = [
           {
             name      = "DATABASE_HOST"
-            valueFrom = "${aws_secretsmanager_secret.prod_pomodoro_backend_db.arn}:host::"
+            valueFrom = "${aws_secretsmanager_secret.prod_pomodoro_db.arn}:host::"
           },
           {
             name      = "DATABASE_DATABASE"
-            valueFrom = "${aws_secretsmanager_secret.prod_pomodoro_backend_db.arn}:dbname::"
+            valueFrom = "${aws_secretsmanager_secret.prod_pomodoro_db.arn}:dbname::"
           },
           {
             name      = "DATABASE_PASSWORD"
-            valueFrom = "${aws_secretsmanager_secret.prod_pomodoro_backend_db.arn}:password::"
+            valueFrom = "${aws_secretsmanager_secret.prod_pomodoro_db.arn}:password::"
           },
           {
             name      = "DATABASE_USER"
-            valueFrom = "${aws_secretsmanager_secret.prod_pomodoro_backend_db.arn}:username::"
+            valueFrom = "${aws_secretsmanager_secret.prod_pomodoro_db.arn}:username::"
+          },
+          {
+            name      = "RAILS_MASTER_KEY"
+            valueFrom = "${aws_secretsmanager_secret.prod_pomodoro_backend_application_secret.arn}:RAILS_MASTER_KEY::"
           },
           # {
           #   name      = "SECRET_VALUES"
-          #   valueFrom = "${aws_secretsmanager_secret.prod_pomodoro_backend_app_secret.arn}"
+          #   valueFrom = "${aws_secretsmanager_secret.prod_pomodoro_backend_application_secret.arn}"
           # },
         ]
         logConfiguration = {
@@ -155,7 +159,7 @@ resource "aws_ecs_task_definition" "prod_pomodoro_backend" {
       },
       {
         name      = "proxy"
-        image     = "${data.aws_caller_identity.current.account_id}.dkr.ecr.ap-northeast-1.amazonaws.com/pomodoro-backend-backend:main-proxy-latest"
+        image     = "${data.aws_caller_identity.current.account_id}.dkr.ecr.ap-northeast-1.amazonaws.com/pomodoro-backend:main-proxy-latest"
         essential = true
         "healthCheck" : {
           "command" : ["CMD-SHELL", "curl -f http://localhost:8080/healthcheck || exit 1"],

@@ -1,5 +1,5 @@
-resource "aws_db_instance" "prod_pomodoro_backend" {
-  identifier                      = "prod-pomodoro-backend"
+resource "aws_db_instance" "prod_pomodoro" {
+  identifier                      = "prod-pomodoro"
   storage_type                    = "gp2"
   ca_cert_identifier              = "rds-ca-2019"
   allocated_storage               = 10
@@ -12,7 +12,7 @@ resource "aws_db_instance" "prod_pomodoro_backend" {
   parameter_group_name            = "pomodoro-backend16"
   enabled_cloudwatch_logs_exports = ["postgresql", "upgrade"]
   kms_key_id                      = data.aws_kms_key.pomodoro_backend.arn
-  vpc_security_group_ids          = [aws_security_group.prod_pomodoro_backend_db.id]
+  vpc_security_group_ids          = [aws_security_group.prod_pomodoro_db.id]
   db_name                         = local.db_name
   username                        = local.user_name
   password                        = random_password.prod_pomodoro_backend.result
@@ -27,8 +27,8 @@ resource "aws_db_instance" "prod_pomodoro_backend" {
   performance_insights_enabled    = true
   copy_tags_to_snapshot           = true
   apply_immediately               = true
-  #skip_final_snapshot          = false
-  #final_snapshot_identifier    = "lastsnapshot20221122"
+  skip_final_snapshot          = true
+  # final_snapshot_identifier    = "lastsnapshot20240128"
 
   tags = {
     autosleep = "false"

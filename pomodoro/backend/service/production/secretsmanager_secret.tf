@@ -1,11 +1,11 @@
-resource "aws_secretsmanager_secret" "prod_pomodoro_backend_app_secret" {
-  name        = "prod-pomodoro-backend-app-secret"
+resource "aws_secretsmanager_secret" "prod_pomodoro_backend_application_secret" {
+  name        = "prod-pomodoro-backend-application-secret"
   description = "prod-pomodoro-backend application secret"
   kms_key_id  = aws_kms_key.prod_pomodoro_backend_secrets_manager.arn
 }
 
-resource "aws_secretsmanager_secret_version" "prod_pomodoro_backend_app_secret_version" {
-  secret_id     = aws_secretsmanager_secret.prod_pomodoro_backend_app_secret.id
+resource "aws_secretsmanager_secret_version" "prod_pomodoro_backend_application_secret_version" {
+  secret_id     = aws_secretsmanager_secret.prod_pomodoro_backend_application_secret.id
   secret_string = jsonencode({})
 
   lifecycle {
@@ -16,18 +16,18 @@ resource "aws_secretsmanager_secret_version" "prod_pomodoro_backend_app_secret_v
   }
 }
 
-resource "aws_secretsmanager_secret" "prod_pomodoro_backend_db" {
+resource "aws_secretsmanager_secret" "prod_pomodoro_db" {
   name = local.seacretsmanager_name
   tags = {
     Name = local.seacretsmanager_name
   }
 }
 
-resource "aws_secretsmanager_secret_version" "prod_pomodoro_backend_db" {
-  secret_id = aws_secretsmanager_secret.prod_pomodoro_backend_db.id
+resource "aws_secretsmanager_secret_version" "prod_pomodoro_db" {
+  secret_id = aws_secretsmanager_secret.prod_pomodoro_db.id
   secret_string = jsonencode({
-    host     = aws_db_instance.prod_pomodoro_backend.address
-    port     = aws_db_instance.prod_pomodoro_backend.port
+    host     = aws_db_instance.prod_pomodoro.address
+    port     = aws_db_instance.prod_pomodoro.port
     username = local.user_name
     dbname   = local.db_name
     password = random_password.prod_pomodoro_backend.result
@@ -35,8 +35,8 @@ resource "aws_secretsmanager_secret_version" "prod_pomodoro_backend_db" {
   })
 }
 
-resource "aws_secretsmanager_secret_policy" "prod_pomodoro_backend_db" {
-  secret_arn = aws_secretsmanager_secret.prod_pomodoro_backend_db.arn
+resource "aws_secretsmanager_secret_policy" "prod_pomodoro_db" {
+  secret_arn = aws_secretsmanager_secret.prod_pomodoro_db.arn
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [

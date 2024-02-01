@@ -199,6 +199,26 @@ resource "aws_iam_policy" "prod_pomodoro_backend_ecs_task" {
         ]
         "Resource" : "${aws_cloudwatch_log_group.ecs_prod_pomodoro_backend.arn}:*"
       },
+      {
+        "Action" : [
+          "ssm:GetParameters",
+          "secretsmanager:GetSecretValue",
+        ]
+        "Effect" : "Allow",
+        "Resource" : [
+          aws_secretsmanager_secret.prod_pomodoro_backend_application_secret.arn,
+          aws_secretsmanager_secret.prod_pomodoro_db.arn,
+        ]
+      },
+      {
+        "Action" : [
+          "kms:Decrypt",
+        ]
+        "Effect" : "Allow",
+        "Resource" : [
+          aws_kms_key.prod_pomodoro_backend_secrets_manager.arn
+        ]
+      },
     ]
   })
 }
@@ -254,7 +274,10 @@ resource "aws_iam_policy" "prod_pomodoro_backend_ecs_task_execution" {
         ]
       },
       {
-        "Action" : "ecr:GetAuthorizationToken"
+        "Action" : [
+          "ecr:GetAuthorizationToken",
+          "ssm:GetParameters",
+        ],
         "Effect" : "Allow",
         "Resource" : "*" # NOTE: リソースレベルのアクセス権限をサポートしていない
       },
@@ -268,13 +291,23 @@ resource "aws_iam_policy" "prod_pomodoro_backend_ecs_task_execution" {
       },
       {
         "Action" : [
+          "ecs:RegisterTaskDefinition",
+          "ecs:ListClusters",
+          "ecs:ListContainerInstances",
+          "ecs:DescribeContainerInstances",
+        ]
+        "Effect" : "Allow"
+        "Resource" : "*" # NOTE: リソースレベルのアクセス権限をサポートしていない
+      },
+      {
+        "Action" : [
           "ssm:GetParameters",
           "secretsmanager:GetSecretValue",
         ]
         "Effect" : "Allow",
         "Resource" : [
-          aws_secretsmanager_secret.prod_pomodoro_backend_app_secret.arn,
-          aws_secretsmanager_secret.prod_pomodoro_backend_db.arn,
+          aws_secretsmanager_secret.prod_pomodoro_backend_application_secret.arn,
+          aws_secretsmanager_secret.prod_pomodoro_db.arn,
         ]
       },
       {
@@ -510,7 +543,8 @@ resource "aws_iam_policy" "prod_pomodoro_backend_codebuild" {
         ]
         "Effect" : "Allow",
         "Resource" : [
-          aws_secretsmanager_secret.prod_pomodoro_backend_app_secret.arn,
+          aws_secretsmanager_secret.prod_pomodoro_backend_application_secret.arn,
+          aws_secretsmanager_secret.prod_pomodoro_db.arn,
         ]
       },
       {

@@ -113,8 +113,8 @@ locals {
   #----------
   # rds
   #----------
-  seacretsmanager_name = "prod-pomodoro-backend-database"
-  db_name              = "prod_pomodoro_backend"
+  seacretsmanager_name = "prod-pomodoro-db"
+  db_name              = "prod_pomodoro"
   user_name            = "postgresmaster"
   #----------
   # tag
