@@ -5,7 +5,7 @@ provider "aws" {
     tags = {
       "Service"       = "pomodoro-backend"
       "Description"   = "Managed by Terraform"
-      "CreatedByRole" = "terraformer"
+      "CreatedByRole" = "admin"
     }
   }
 }
@@ -18,7 +18,7 @@ provider "aws" {
     tags = {
       "Service"       = "pomodoro-backend"
       "Description"   = "Managed by Terraform"
-      "CreatedByRole" = "terraformer"
+      "CreatedByRole" = "admin"
     }
   }
 }

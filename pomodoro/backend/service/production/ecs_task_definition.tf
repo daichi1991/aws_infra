@@ -25,7 +25,7 @@ resource "aws_ecs_task_definition" "prod_pomodoro_backend" {
       {
         name      = "log_router"
         image     = "${data.aws_caller_identity.current.account_id}.dkr.ecr.ap-northeast-1.amazonaws.com/pomodoro-backend:main-log_router-latest"
-        essential = true
+        essential = false
         "portMappings" : [
           {
             "containerPort" : 8081,
@@ -33,13 +33,6 @@ resource "aws_ecs_task_definition" "prod_pomodoro_backend" {
             "protocol" : "tcp"
           }
         ],
-        "healthCheck" : {
-          "command" : ["CMD-SHELL", "curl -f http://localhost:8080/healthcheck || exit 1"],
-          "interval" : 30,
-          "timeout" : 5,
-          "retries" : 3,
-          "startPeriod" : 0
-        },
         firelensConfiguration = {
           type = "fluentbit"
           options = {
@@ -50,6 +43,18 @@ resource "aws_ecs_task_definition" "prod_pomodoro_backend" {
           }
         }
         environment = [
+          {
+            name  = "RACK_ENV",
+            value = "production"
+          },
+          {
+            name  = "RAILS_LOG_TO_STDOUT",
+            value = "true"
+          },
+          {
+            name  = "RAILS_SERVE_STATIC_FILES",
+            value = "false"
+          },
           {
             name  = "AWS_REGION",
             value = data.aws_region.current.name
@@ -95,7 +100,7 @@ resource "aws_ecs_task_definition" "prod_pomodoro_backend" {
       {
         name      = "web"
         image     = "${data.aws_caller_identity.current.account_id}.dkr.ecr.ap-northeast-1.amazonaws.com/pomodoro-backend:main-web-latest"
-        essential = true
+        essential = false
         "portMappings" : [
           {
             "containerPort" : 8082,
@@ -103,13 +108,6 @@ resource "aws_ecs_task_definition" "prod_pomodoro_backend" {
             "protocol" : "tcp"
           }
         ],
-        "healthCheck" : {
-          "command" : ["CMD-SHELL", "curl -f http://localhost:8080/healthcheck || exit 1"],
-          "interval" : 30,
-          "timeout" : 5,
-          "retries" : 3,
-          "startPeriod" : 0
-        },
         environment = [
           {
             name  = "RAILS_ENV"
@@ -137,6 +135,18 @@ resource "aws_ecs_task_definition" "prod_pomodoro_backend" {
             name      = "RAILS_MASTER_KEY"
             valueFrom = "${aws_secretsmanager_secret.prod_pomodoro_backend_application_secret.arn}:RAILS_MASTER_KEY::"
           },
+          {
+            name      = "FRONTEND_ORIGIN"
+            valueFrom = "${aws_secretsmanager_secret.prod_pomodoro_backend_application_secret.arn}:FRONTEND_ORIGIN::"
+          },
+          {
+            name      = "SPOTIFY_CLIENT_ID"
+            valueFrom = "${aws_secretsmanager_secret.prod_pomodoro_backend_application_secret.arn}:SPOTIFY_CLIENT_ID::"
+          },
+          {
+            name      = "SPOTIFY_CLIENT_SECRET"
+            valueFrom = "${aws_secretsmanager_secret.prod_pomodoro_backend_application_secret.arn}:SPOTIFY_CLIENT_SECRET::"
+          },
           # {
           #   name      = "SECRET_VALUES"
           #   valueFrom = "${aws_secretsmanager_secret.prod_pomodoro_backend_application_secret.arn}"
@@ -161,13 +171,6 @@ resource "aws_ecs_task_definition" "prod_pomodoro_backend" {
         name      = "proxy"
         image     = "${data.aws_caller_identity.current.account_id}.dkr.ecr.ap-northeast-1.amazonaws.com/pomodoro-backend:main-proxy-latest"
         essential = true
-        "healthCheck" : {
-          "command" : ["CMD-SHELL", "curl -f http://localhost:8080/healthcheck || exit 1"],
-          "interval" : 30,
-          "timeout" : 5,
-          "retries" : 3,
-          "startPeriod" : 0
-        },
         dependsOn = [
           {
             condition     = "START"

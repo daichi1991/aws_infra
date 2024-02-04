@@ -15,12 +15,12 @@ resource "aws_security_group" "prod_pomodoro_backend_alb" {
     }
   }
 
-  ingress {
-    from_port       = "8080"
-    to_port         = "8080"
-    protocol        = "tcp"
-    description     = "Blue/Green deployment"
-  }
+  # ingress {
+  #   from_port       = "8080"
+  #   to_port         = "8080"
+  #   protocol        = "tcp"
+  #   description     = "Blue/Green deployment"
+  # }
 
   egress {
     from_port   = 0

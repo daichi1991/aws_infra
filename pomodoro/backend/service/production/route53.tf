@@ -1,6 +1,6 @@
 resource "aws_route53_record" "prod_pomodoro_backend" {
   zone_id = data.aws_route53_zone.pomdoro_com_zone.zone_id
-  name    = "api.pomo-sync-sounds.jp"
+  name    = "api.pomo-sync-sounds.com"
   type    = "A"
 
   alias {

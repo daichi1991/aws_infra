@@ -83,6 +83,11 @@ locals {
       value = "main"
       type  = "PLAINTEXT"
     }
+    rails_master_key = {
+      name  = "RAILS_MASTER_KEY"
+      value = "${aws_secretsmanager_secret.prod_pomodoro_backend_application_secret.name}:RAILS_MASTER_KEY"
+      type  = "SECRETS_MANAGER"
+    }
     rails_env = {
       name  = "RAILS_ENV"
       value = "production"

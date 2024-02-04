@@ -11,9 +11,9 @@ resource "aws_alb_target_group" "prod_pomodoro_backend_blue" {
     path                = "/healthcheck"
     port                = "traffic-port"
     healthy_threshold   = 2
-    unhealthy_threshold = 2
-    timeout             = 10
-    interval            = 15
+    unhealthy_threshold = 10
+    timeout             = 30
+    interval            = 60
     matcher             = 200
   }
 }
@@ -31,9 +31,9 @@ resource "aws_alb_target_group" "prod_pomodoro_backend_green" {
     path                = "/healthcheck"
     port                = "traffic-port"
     healthy_threshold   = 2
-    unhealthy_threshold = 2
-    timeout             = 10
-    interval            = 15
+    unhealthy_threshold = 10
+    timeout             = 30
+    interval            = 60
     matcher             = 200
   }
 }
