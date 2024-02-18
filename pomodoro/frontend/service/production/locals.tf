@@ -4,15 +4,11 @@ locals {
 
 locals {
   amplify_app_environment_variables = {
-    next_public_api_url = {
-      name  = "NEXT_PUBLIC_API_URL"
-      value = "https://api.pomo-sync-sounds.com"
-      type  = "PLAINTEXT"
-    }
-    custom_image = {
-      name  = "_CUSTOM_IMAGE"
-      value = "public.ecr.aws/docker/library/node:20.11.0"
-      type  = "PLAINTEXT"
-    }
+    next_public_api_url = "https://pomo-sync-sounds-api.onrender.com"
+    custom_image = "public.ecr.aws/docker/library/node:20.11.0"
   }
+}
+
+locals {
+  domain_name = "pomo-sync-sounds.com"
 }

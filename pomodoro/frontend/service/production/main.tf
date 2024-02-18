@@ -3,7 +3,7 @@ provider "aws" {
 
   default_tags {
     tags = {
-      "Service"       = "pomodoro-backend"
+      "Service"       = "pomodoro-frontend"
       "Description"   = "Managed by Terraform"
       "CreatedByRole" = "admin"
     }
