@@ -3,3 +3,4 @@
 .envrc
 terraform.tfstate.*
 *.terraform/
+errored.tfstate

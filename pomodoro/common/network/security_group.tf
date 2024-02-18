@@ -7,7 +7,7 @@ resource "aws_security_group" "pomodoro_backend_ecr" {
     from_port   = "443"
     to_port     = "443"
     protocol    = "tcp"
-    cidr_blocks = ["10.5.16.0/20"] // pomodoro
+    cidr_blocks = ["10.1.0.0/16"] // pomodoro
   }
 
   egress {
@@ -31,7 +31,7 @@ resource "aws_security_group" "pomodoro_backend_secretsmanager" {
     from_port   = "443"
     to_port     = "443"
     protocol    = "tcp"
-    cidr_blocks = ["10.5.16.0/20"] // pomodoro
+    cidr_blocks = ["10.1.0.0/16"] // pomodoro
   }
 
   egress {
@@ -55,7 +55,7 @@ resource "aws_security_group" "pomodoro_backend_logs" {
     from_port   = "443"
     to_port     = "443"
     protocol    = "tcp"
-    cidr_blocks = ["10.5.16.0/20"] // pomodoro
+    cidr_blocks = ["10.1.0.0/16"] // pomodoro
   }
 
   egress {

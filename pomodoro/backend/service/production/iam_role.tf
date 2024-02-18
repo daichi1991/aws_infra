@@ -181,7 +181,7 @@ resource "aws_iam_policy" "prod_pomodoro_backend_ecs_task" {
           "logs:DescribeLogStreams",
           "logs:PutLogEvents"
         ]
-        "Resource" : "${aws_cloudwatch_log_group.ecs_prod_pomodoro_backend.arn}:*"
+        "Resource" : "*"
       },
       {
         "Effect" : "Allow"
@@ -189,15 +189,6 @@ resource "aws_iam_policy" "prod_pomodoro_backend_ecs_task" {
           "logs:DescribeLogGroups"
         ]
         "Resource" : "*"
-      },
-      {
-        "Effect" : "Allow"
-        "Action" : [
-          "logs:CreateLogStream",
-          "logs:DescribeLogStreams",
-          "logs:PutLogEvents"
-        ]
-        "Resource" : "${aws_cloudwatch_log_group.ecs_prod_pomodoro_backend.arn}:*"
       },
       {
         "Action" : [

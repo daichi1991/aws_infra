@@ -12,6 +12,13 @@ resource "aws_vpc_endpoint_subnet_association" "pomodoro_backend_ecr_dkr" {
   subnet_id       = each.value
 }
 
+resource "aws_vpc_endpoint_subnet_association" "pomodoro_backend_ecr_ssm" {
+  for_each = local.target_subnet
+
+  vpc_endpoint_id = aws_vpc_endpoint.pomodoro_ecr["pomodoro-backend-ecr-ssm"].id
+  subnet_id       = each.value
+}
+
 resource "aws_vpc_endpoint_subnet_association" "pomodoro_backend_secretsmanager" {
   for_each = local.target_subnet
 

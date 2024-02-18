@@ -20,6 +20,11 @@ resource "aws_route_table" "prod_pomodoro_backend_private" {
 
   vpc_id = aws_vpc.pomodoro.id
 
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_nat_gateway.prod_pomodoro_backend_natgw.id
+  }
+
   tags = {
     Name        = each.value.name
     Environment = "production"
